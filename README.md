@@ -1,5 +1,5 @@
-<h1 align="center" >NODE OCR</h1>
-<h3 align="center"> A Rest API solution for Optical Character Recognition.</h3>
+<h1 align="center" >Web OCR</h1>
+<h3 align="center"> A Optical Character Recognition(OCR) by using tesseract engine.</h3>
 
 ## Live Server Here
 #### [Heroku](https://node-ocr.herokuapp.com/)
