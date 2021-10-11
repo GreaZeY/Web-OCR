@@ -6,9 +6,9 @@
 
 ## Technologies used
 * NodeJS
+* React.JS
 * ExpressJS
 * TesseractJS
-* MongoDB
 
 ### Installing depencencies and running the app
 * Fork the repository
