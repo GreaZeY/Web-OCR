@@ -2,7 +2,7 @@
 <h3 align="center"> A Optical Character Recognition(OCR) by using tesseract engine.</h3>
 
 ## Screenshot
-![1](tree/SS/demo.png)
+![1](../tree/SS/demo.png)
 #### [Live Demo](https://web-ocr.herokuapp.com/)
 
 ## Technologies used
