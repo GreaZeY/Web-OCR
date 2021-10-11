@@ -1,7 +1,8 @@
 <h1 align="center" >Web OCR</h1>
 <h3 align="center"> A Optical Character Recognition(OCR) by using tesseract engine.</h3>
 
-## Live Server Here
+## Screenshot
+<img src="/SS/demo.png"></img>
 #### [Heroku](https://node-ocr.herokuapp.com/)
 
 ## Technologies used
@@ -16,4 +17,4 @@
 * Install the dependencies by `npm install`
 * Run in development mode by `npm run start`
 
-## Screenshots
+
