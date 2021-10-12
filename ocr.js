@@ -4,7 +4,7 @@ const ef = require('express-fileupload')
 const fs = require('fs');
 const Tesseract = require('tesseract.js');
 const hostname = 'localhost'
-const port = 5000
+const port = 7453
 
 var filename = 'ocr_image'
 var app = express()
@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/img', express.static('storage/images'))
 app.use('/dtxt', express.static('storage/text_files'))
 app.get('/', (req,res)=>{
-    res.send('<h1>Simple OCR</h1>')
+    res.send('<h1>Web OCR</h1>')
 })
 
 
@@ -24,15 +24,15 @@ const capturedImage = async (req, res, next) => {
         const path = './storage/images/ocr_image.jpeg'     // destination image path
         let imgdata = req.body.img;                 // get img as base64
         const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');     // convert base64
-        fs.writeFileSync(path, base64Data,  {encoding: 'base64'});                  // write img file
+        await fs.writeFileSync(path, base64Data,  {encoding: 'base64'});                  // write img file
 
         Tesseract.recognize(
             `http://${hostname}:${port}/img/ocr_image.jpeg`,
             'eng',
-            { logger: m => console.log(m) }
+            
         )
         .then(({ data: { text } }) => {
-            console.log(text)
+            //console.log(text)
             return res.send({
                 image: imgdata,
                 path: path,
@@ -47,28 +47,25 @@ const capturedImage = async (req, res, next) => {
 app.post('/capture', capturedImage)
 
 
-app.post('/upload',(req, res)=>{
+app.post('/upload',async (req, res)=>{
     if(req.files){
-        console.log(req.files)
+        //console.log(req.files)
         var efFile = req.files.file
          filename = efFile.name
-        efFile.mv('./storage/images/'+filename, (err)=>{
+        await efFile.mv('./storage/images/'+filename, (err)=>{
             if(err){
-                console.log(err)
+                //console.log(err)
                 res.send(err)
             } else {
-                 console.log(filename)
+                 //console.log(filename)
                 // res.send(filename)
                 Tesseract.recognize(
                     `./storage/images/${filename}`,
                     'eng',
-                    { 
-                        logger: m => console.log(m)
-                     }
                 )
 
                 .then(({ data: { text } }) => {
-                    console.log(text)
+                    //console.log(text)
                     return res.send({
                         image: `http://${hostname}:${port}/img/${filename}`,
                         path: `http://${hostname}:${port}/img/${filename}`,
@@ -77,25 +74,22 @@ app.post('/upload',(req, res)=>{
                     });
                 })
                 .catch((err)=>{
-                    console.log(err)
+                    //console.log(err)
                 })
             }
         })
     }
 })
 
-app.post('/txt',  (req, res)=>{
-    console.log('txt', req.body)
+app.post('/txt',  async (req, res)=>{
     fs.writeFile(`storage/text_files/${filename}.txt`,req.body.txt, (err) => {  
         if (err) throw err;
       })
-        return res.send({path: `http://${hostname}:${port}/dtxt/${filename}.txt` 
+        return await res.send({path: `http://${hostname}:${port}/dtxt/${filename}.txt` 
           })
    
       
   
 })
 
-app.listen(process.env.port||port, ()=>{
-    console.log('Server live @port 5000!')
-})
+app.listen(process.env.port||port)
