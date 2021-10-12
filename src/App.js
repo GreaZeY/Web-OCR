@@ -4,7 +4,8 @@ import Webcam from "react-webcam";
 import axios from 'axios'
 import fileDownload from 'js-file-download'
 import { Header, Grid, Button, Icon, Message, Loader } from 'semantic-ui-react'
-
+const hostname = 'localhost'
+const port = process.env.port || 5000
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
   /////////////////////////////////////////////////////--------------------txt--------------------------////////////////////
 
   const txt = () => {
-    let url = 'http://localhost:5000/txt'
+    let url = `http://${hostname}:${port}/txt`
     var formData = new FormData()
     formData.append('txt', textOcr)
     var config = {
@@ -56,7 +57,7 @@ function App() {
     setLoad(true)
     const imageSrc = webcamRef.current.getScreenshot();
     // console.log(imageSrc)  
-    let url = 'http://localhost:5000/capture'
+    let url = `http://${hostname}:${port}/capture`
     let config = {
       headers: {'Content-Type': 'application/json'} 
     }
@@ -80,7 +81,7 @@ function App() {
 
   const upload = (file) => {
     setLoad(true)
-    var url = 'http://localhost:5000/upload'
+    var url = `http://${hostname}:${port}/upload`
     var formData = new FormData()
     formData.append('file', file)
     console.log(file,formData)
