@@ -1,5 +1,5 @@
 <h1 align="center"><a href="https://greazey-web-ocr.herokuapp.com/" >Web OCR</a><h1>
-<h2 align="center"> A Optical Character Recognition(OCR) by using tesseract engine.</h3>
+<p align="center"> A Optical Character Recognition(OCR) by using tesseract engine.</p>
 
   #### [Live Demo](https://greazey-web-ocr.herokuapp.com/)
   
