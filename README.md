@@ -3,7 +3,7 @@
 
 ## Screenshot
 ![](https://raw.githubusercontent.com/GreaZeY/Web-OCR/main/SS/demo.PNG)
-#### [Live Demo](https://web-ocr.herokuapp.com/)
+#### [Live Demo](https://greazey-webocr.netlify.app/)
 
 ## Technologies used
 * NodeJS
