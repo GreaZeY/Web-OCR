@@ -1,8 +1,10 @@
-let express = require('express')
-let cors = require('cors')
-let ef = require('express-fileupload')
+const express = require('express')
+const cors = require('cors')
+const ef = require('express-fileupload')
 const fs = require('fs');
 const Tesseract = require('tesseract.js');
+const hostname = 'localhost'
+const port = 5000
 
 var filename = 'ocr_image'
 var app = express()
@@ -25,7 +27,7 @@ const capturedImage = async (req, res, next) => {
         fs.writeFileSync(path, base64Data,  {encoding: 'base64'});                  // write img file
 
         Tesseract.recognize(
-            'http://localhost:5000/img/ocr_image.jpeg',
+            `http://${hostname}:${port}/img/ocr_image.jpeg`,
             'eng',
             { logger: m => console.log(m) }
         )
@@ -68,8 +70,8 @@ app.post('/upload',(req, res)=>{
                 .then(({ data: { text } }) => {
                     console.log(text)
                     return res.send({
-                        image: `http://localhost:5000/img/${filename}`,
-                        path: `http://localhost:5000/img/${filename}`,
+                        image: `http://${hostname}:${port}/img/${filename}`,
+                        path: `http://${hostname}:${port}/img/${filename}`,
                         text: text
 
                     });
@@ -87,13 +89,13 @@ app.post('/txt',  (req, res)=>{
     fs.writeFile(`storage/text_files/${filename}.txt`,req.body.txt, (err) => {  
         if (err) throw err;
       })
-        return res.send({path: `http://localhost:5000/dtxt/${filename}.txt` 
+        return res.send({path: `http://${hostname}:${port}/dtxt/${filename}.txt` 
           })
    
       
   
 })
 
-app.listen(5000, ()=>{
+app.listen(process.env.port||port, ()=>{
     console.log('Server live @port 5000!')
 })
