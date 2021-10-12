@@ -1,11 +1,10 @@
 import React, { useRef, useState, useCallback, createRef } from 'react';
-import './App.css';
 import Webcam from "react-webcam";
 import axios from 'axios'
 import fileDownload from 'js-file-download'
 import { Header, Grid, Button, Icon, Message, Loader } from 'semantic-ui-react'
 const hostname = 'localhost'
-const port = process.env.port || 5000
+const port = process.env.port || 7453
 
 function App() {
 
@@ -21,7 +20,7 @@ function App() {
 
   /////////////////////////////////////////////////////--------------------txt--------------------------////////////////////
 
-  const txt = () => {
+  const txt = async () => {
     let url = `http://${hostname}:${port}/txt`
     var formData = new FormData()
     formData.append('txt', textOcr)
@@ -29,9 +28,8 @@ function App() {
       headers:
       {'Content-Type': 'text/plain'}
     }
-     axios.post(url, formData, config)
+    await axios.post(url, formData, config)
      .then((res)=>{
-      console.log('dtxt',res.data)
       let handleDownload = (url, filename) => {
         axios.get(url, {
           responseType: 'blob',
@@ -40,7 +38,6 @@ function App() {
           fileDownload(res.data, filename)
         })
       }
-      console.log(`imgSrc`,setImgSrc)
       handleDownload(res.data.path,`your_text.txt`)
     })  
     
@@ -53,10 +50,10 @@ function App() {
 
 
 
-  const capture = useCallback(() => {
+  const capture =  useCallback( async() => {
     setLoad(true)
     const imageSrc = webcamRef.current.getScreenshot();
-    // console.log(imageSrc)  
+    // ////console.log(imageSrc)  
     let url = `http://${hostname}:${port}/capture`
     let config = {
       headers: {'Content-Type': 'application/json'} 
@@ -65,33 +62,33 @@ function App() {
       img: imageSrc
     }
 
-     axios.post(url, dataBody, config)
+     await axios.post(url, dataBody, config)
     .then((res) => {
-        console.log('cap',res.data)
+        //console.log('cap',res.data)
         setTextOcr(res.data.text)
         setImgSrc(imageSrc);
         setLoad(false)
     })
     .catch((err) => {
-      console.log(err)
+      //console.log(err)
     })
     
   }, [webcamRef, setImgSrc]
   );
 
-  const upload = (file) => {
+  const upload = async (file) => {
     setLoad(true)
     var url = `http://${hostname}:${port}/upload`
     var formData = new FormData()
     formData.append('file', file)
-    console.log(file,formData)
+    //console.log(file,formData)
     var config = {
       headers:
       {'Content-Type': 'multipart/form-data'}
     }
-    return axios.post(url, formData, config)
+    return await axios.post(url, formData, config)
     .then((res)=>{
-      console.log('upload',res.data)
+      //console.log('upload',res.data)
       setTextOcr(res.data.text)
       setImgSrc(res.data.image);
       setLoad(false)
@@ -114,18 +111,19 @@ function App() {
         <Grid.Column style={{width:"50%"}} key={0}>
           <center>
             <Webcam
+            className="cam"
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
             />
             <Grid.Column>
-              <Button size='big' onClick={capture} 
+              <Button className="butt" size='big' onClick={capture} 
               style={{margin:20}} icon labelPosition='left' inverted color='red'>
                 <Icon name='camera' />
                 Capture
               </Button>
               
-              <Button size='big' onClick={() => fileInputRef.current.click()} 
+              <Button className="butt"  size='big' onClick={() => fileInputRef.current.click()} 
               style={{margin:20}} icon labelPosition='left' inverted color='blue'>
                 <Icon name='upload' />
                 Upload
