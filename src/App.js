@@ -4,7 +4,7 @@ import axios from 'axios'
 import fileDownload from 'js-file-download'
 import { Header, Grid, Button, Icon, Message, Loader } from 'semantic-ui-react'
 const hostname = 'localhost'
-const port = process.env.port || 7453
+const port = process.env.PORT || 7453
 
 function App() {
 
