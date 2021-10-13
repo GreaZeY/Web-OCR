@@ -4,8 +4,8 @@ const ef = require('express-fileupload')
 const fs = require('fs');
 const Tesseract = require('tesseract.js');
 const hostname = 'localhost'
-const port = 7453
-console.log(port)
+const port = process.env.PORT || 7453
+console.log('all port',port,(port-1))
 
 var filename = 'ocr_image'
 var app = express()
