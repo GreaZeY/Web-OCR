@@ -92,4 +92,4 @@ app.post('/txt',  async (req, res)=>{
   
 })
 
-app.listen(process.env.port||port)
+app.listen(process.env.PORT||port)
