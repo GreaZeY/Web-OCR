@@ -2,10 +2,8 @@
 <p align="center"> A Optical Character Recognition(OCR) by using tesseract engine.</p>
 
   #### Live Demo
-  
-  [heroku](https://greazey-web-ocr.herokuapp.com/)
-  
-  [netlify](https://greazey-web-ocr.netlify.app/)
+ * [heroku](https://greazey-web-ocr.herokuapp.com/)
+ * [netlify](https://greazey-web-ocr.netlify.app/)
   
 ## Screenshot
 ![](https://raw.githubusercontent.com/GreaZeY/Web-OCR/main/SS/demo.PNG)
