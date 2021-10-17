@@ -4,7 +4,7 @@
 #### [Live Demo](https://greazey-web-ocr.netlify.app/)
   
 ## Screenshot
-![](https://raw.githubusercontent.com/GreaZeY/Web-OCR/main/SS/demo.PNG)
+![](https://raw.githubusercontent.com/GreaZeY/Web-OCR/main/SS/Picture1.png)
 
 
 ## Technologies used
