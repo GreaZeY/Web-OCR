@@ -3,7 +3,7 @@ import Webcam from "react-webcam";
 import axios from 'axios'
 import fileDownload from 'js-file-download'
 import { Header, Grid, Button, Icon, Message, Loader } from 'semantic-ui-react'
-const hostname = 'localhost'
+const hostname = 'https://alive-jacket-crow.cyclic.app/'
 const port = 7453
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   /////////////////////////////////////////////////////--------------------txt--------------------------////////////////////
 
   const txt = async () => {
-    let url = `http://${hostname}:${port}/txt`
+    let url = `http://${hostname}/txt`
     var formData = new FormData()
     formData.append('txt', textOcr)
     var config = {
@@ -54,7 +54,7 @@ function App() {
     setLoad(true)
     const imageSrc = webcamRef.current.getScreenshot();
     // ////console.log(imageSrc)  
-    let url = `http://${hostname}:${port}/capture`
+    let url = `http://${hostname}/capture`
     let config = {
       headers: {'Content-Type': 'application/json'} 
     }
@@ -78,7 +78,7 @@ function App() {
 
   const upload = async (file) => {
     setLoad(true)
-    var url = `http://${hostname}:${port}/upload`
+    var url = `http://${hostname}/upload`
     var formData = new FormData()
     formData.append('file', file)
     //console.log(file,formData)
